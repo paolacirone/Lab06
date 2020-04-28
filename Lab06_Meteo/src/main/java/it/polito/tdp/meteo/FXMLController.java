@@ -5,8 +5,10 @@
 package it.polito.tdp.meteo;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.meteo.model.Citta;
 import it.polito.tdp.meteo.model.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,6 +46,16 @@ public class FXMLController {
     @FXML
     void doCalcolaSequenza(ActionEvent event) {
 
+    	String x = this.boxMese.getValue();
+    	int mese = Integer.valueOf(x);
+    	
+//    	if(mese!=null) {
+    		List<Citta> best = model.trovaSequenza(mese);
+    		
+    		txtResult.appendText(String.format("Sequenza ottima per il mese %s\n", Integer.toString(mese)));
+    		txtResult.appendText(best +"\n");
+//    	}
+    
     }
 
     @FXML
@@ -55,9 +67,9 @@ public class FXMLController {
     	String x = this.boxMese.getValue();
     	int mese = Integer.valueOf(x);
      //	txtResult.appendText("Per il mese di " +mese+ " l'umidità media per le seguenti località vale: \n "+model.getUmiditaMedia(mese));
-    	txtResult.appendText(model.getUmidita(mese, "Torino"));
-    	txtResult.appendText("\n"+model.getUmidita(mese, "Milano"));
-    	txtResult.appendText("\n"+model.getUmidita(mese, "Genova"));
+    	txtResult.appendText(model.getUmiditaMedia(mese, "Torino"));
+    	txtResult.appendText("\n"+model.getUmiditaMedia(mese, "Milano"));
+    	txtResult.appendText("\n"+model.getUmiditaMedia(mese, "Genova"));
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
